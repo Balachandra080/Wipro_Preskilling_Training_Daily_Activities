@@ -1,0 +1,106 @@
+/*
+package com.gl.springboot.database;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@SpringBootApplication
+public class SpringBootDatabaseApplication implements CommandLineRunner 
+{
+	
+	@Autowired
+    StudentService studentService;  
+
+    public static void main(String[] args) 
+    {
+        SpringApplication.run(SpringBootDatabaseApplication.class, args);
+    }
+    @Override
+    public void run(String... args) throws Exception 
+    {
+        // Creating a new student
+        Student s1 = new Student("Siva", 30);
+
+        // Using service layer to insert student
+        studentService.insertStudent(s1);
+    }
+}
+
+*/
+
+
+
+package com.gl.springboot.database;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+@SpringBootApplication
+public class SpringBootDatabaseApplication implements CommandLineRunner  {
+	@Autowired
+	StudentService studentService;
+	
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootDatabaseApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		
+		/*
+		 * Student s1=new Student("anusha", 3); studentService.insertStudent(s1);
+		 */
+		
+		
+		// TODO Auto-generated method stub
+		
+		
+		/*
+		 * Student s1 = new Student("Gowtham",27); Student s2 = new Student("Sam",23);
+		 * Student s3 = new Student("Sathish",22);
+		 * 
+		 * List<Student> students = new ArrayList<>(); students.add(s1);
+		 * students.add(s2); students.add(s3);
+		 * studentService.insertManyStudents(students);
+		 */
+		
+		/*
+		 * Student sankar = new Student("Sankar", 27); sankar.setId(3);
+		 * studentRepo.save(sankar);
+		 */
+		 
+		/*
+		 * Student gowtham = new Student(); gowtham.setId(2);
+		 * studentRepo.delete(gowtham);
+		 */
+		
+		List<Student> allStudents = studentService.getAllStudentOrderByAge();
+		for(Student temp : allStudents) {
+			System.out.println("Id : "+temp.getId());
+			System.out.println("Name : "+temp.getName());
+			System.out.println("Age : "+temp.getAge());
+			System.out.println("--------------");
+			
+		/*
+		 * Student student = studentService.getStudentById(4); if(student != null) {
+		 * System.out.println("Name : "+student.getName());
+		 * 
+		 * }else { System.err.println("Cannot find the student"); }
+		 */
+		
+		
+	}
+	
+	}
+}

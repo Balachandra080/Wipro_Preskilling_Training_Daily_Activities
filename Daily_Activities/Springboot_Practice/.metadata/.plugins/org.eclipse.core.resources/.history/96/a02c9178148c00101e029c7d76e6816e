@@ -1,0 +1,27 @@
+package com.gl.pizza.service;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.gl.pizza.model.CartItem;
+import com.gl.pizza.service.CartItemService;
+
+@RestController
+@RequestMapping("/api/cart-items")
+public class CartItemController {
+
+    @Autowired
+    private CartItemService service;
+
+    @PostMapping("/add")
+    public String addCartItem(@RequestBody CartItem cartItem) {
+        service.add(cartItem);
+        return "Item added to cart!";
+    }
+
+    @DeleteMapping("/remove/{id}")
+    public String removeCartItem(@PathVariable Long id) {
+        service.remove(id);
+        return "Item removed from cart!";
+    }
+}

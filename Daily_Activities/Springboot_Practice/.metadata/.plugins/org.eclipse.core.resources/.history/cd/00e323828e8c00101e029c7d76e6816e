@@ -1,0 +1,5 @@
+package com.gl.fs.security;
+
+public class JwtAuthFilter {
+
+}

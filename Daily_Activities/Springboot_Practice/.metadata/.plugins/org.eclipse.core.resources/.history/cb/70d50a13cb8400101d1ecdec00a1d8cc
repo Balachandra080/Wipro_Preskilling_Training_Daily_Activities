@@ -1,0 +1,5 @@
+package com.gl.springboot.database;
+
+public class ProductService {
+
+}

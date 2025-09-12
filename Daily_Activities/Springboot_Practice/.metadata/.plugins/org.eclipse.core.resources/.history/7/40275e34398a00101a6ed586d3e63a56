@@ -1,0 +1,58 @@
+package com.gl.security;
+
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class AuthController {
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    JWTService jwtService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @PostMapping("/open/sign-up-admin")
+    public String signupAdmin(@RequestParam String username, @RequestParam String password) {
+        if (userRepository.existsByUsername(username)) {
+            throw new RuntimeException("Username already used");
+        }
+        Role adminRole = roleRepository.findByName("ROLE_ADMIN").get();
+        User user = new User(username, password);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRoles(Set.of(adminRole));
+        userRepository.save(user);
+        
+        
+        // create a token for user
+        String token = jwtService.generateToken(user.getUsername(), Map.of("roles", "ROLE_ADMIN"));
+        return token;
+    }
+
+    @PostMapping("/open/sign-up-user")
+    public String signupUser(@RequestParam String username, @RequestParam String password) {
+        if (userRepository.existsByUsername(username)) {
+            throw new RuntimeException("Username already used");
+        }
+        Role userRole = roleRepository.findByName("ROLE_USER").get();
+        User user = new User(username, password);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRoles(Set.of(userRole));
+        userRepository.save(user);
+
+        String token = jwtService.generateToken(username, Map.of("roles", "ROLE_USER"));
+        return token;
+    }
+}

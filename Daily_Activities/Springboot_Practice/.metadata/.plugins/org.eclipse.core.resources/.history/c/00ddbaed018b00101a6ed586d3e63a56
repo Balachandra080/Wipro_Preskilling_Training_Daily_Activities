@@ -1,0 +1,36 @@
+package com.gl.microservice.client;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+@RestController
+public class MyController {
+
+    @Autowired
+    LoadBalancerClient loadBalancerClient;
+
+    // We are the LB to connect to the Microservice with the given name
+    public String serverCommunication(String serverName) {
+        // Similar to the db URI
+        ServiceInstance serviceInstance = loadBalancerClient.choose(serverName);
+        return serviceInstance.getUri().toString();
+    }
+    
+    // Controller for adding new course
+    @PostMapping("/course/add")
+    public String addCourse(String name,double fees) {
+        RestTemplate rt = new RestTemplate();
+        String serviceName = "Course-Micro-Service"; // case-sensitive
+        String serviceUrl = serverCommunication(serviceName); // connecting to microservice
+
+        // hit the microservice server URL
+        rt.postForEntity(serviceUrl, null, String.class);
+
+        return "Course added";
+    }
+}

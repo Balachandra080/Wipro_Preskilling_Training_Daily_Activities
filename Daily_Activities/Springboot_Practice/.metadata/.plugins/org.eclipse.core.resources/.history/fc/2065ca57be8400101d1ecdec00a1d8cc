@@ -1,0 +1,13 @@
+package com.gl.springboot.database;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+@SpringBootApplication
+@EnableJpaRepositories(basePackages = "com.gl.springboot.database")
+public class SpringBootDatabaseApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootDatabaseApplication.class, args);
+    }
+}

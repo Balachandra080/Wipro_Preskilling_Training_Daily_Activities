@@ -1,0 +1,25 @@
+package com.gl.pizza.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.gl.pizza.model.CartItem;
+import com.gl.pizza.repo.CartItemRepo;
+
+
+//   (Add/remove items from cart)
+
+
+@Service
+public class CartItemService {
+
+    @Autowired
+    private CartItemRepo repo;
+
+    public void add(CartItem cartItem) {
+        repo.save(cartItem);
+    }
+
+    public void remove(Long id) {
+        repo.deleteById(id);
+    }
+}

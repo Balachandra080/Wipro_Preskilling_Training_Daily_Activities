@@ -1,0 +1,45 @@
+package com.gl.pizza.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import com.gl.pizza.model.Order;
+import com.gl.pizza.service.OrderService;
+
+@RestController
+@RequestMapping("/api/orders")
+public class OrderController {
+
+    @Autowired
+    private OrderService service;
+
+    @PostMapping("/place")
+    public String placeOrder(@RequestBody Order order) {
+        service.placeOrder(order);
+        return "Order placed successfully!";
+    }
+
+    @PutMapping("/cancel/{id}")
+    public String cancelOrder(@PathVariable Long id) {
+        service.cancelOrder(id);
+        return "Order cancelled!";
+    }
+
+    @PutMapping("/accept/{id}")
+    public String acceptOrder(@PathVariable Long id) {
+        service.acceptOrder(id);
+        return "Order accepted!";
+    }
+
+    @PutMapping("/reject/{id}")
+    public String rejectOrder(@PathVariable Long id) {
+        service.rejectOrder(id);
+        return "Order rejected!";
+    }
+
+    @GetMapping("/all")
+    public List<Order> getAllOrders() {
+        return service.getAll();
+    }
+}

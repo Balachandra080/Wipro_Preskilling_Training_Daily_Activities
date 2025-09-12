@@ -1,0 +1,20 @@
+package com.gl.springboot;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.CommandLineRunner;
+
+@SpringBootApplication
+public class SpringBootDemo1Application implements CommandLineRunner {
+
+    public static void main(String[] args) {
+        System.out.println("Server about to start...");
+        SpringApplication.run(SpringBootDemoApplication.class, args);
+        System.out.println("Server started successfully!");
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("CommandLineRunner executing after server startup...");
+    }
+}

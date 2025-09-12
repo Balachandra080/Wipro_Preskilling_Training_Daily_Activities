@@ -1,0 +1,60 @@
+package com.gl.pizza.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.gl.pizza.model.Admin;
+import com.gl.pizza.service.AdminService;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/admin")
+public class AdminController {
+
+    @Autowired
+    private AdminService service;
+
+    // Register new admin
+    @PostMapping("/register")
+    public Admin register(@RequestBody Admin admin) {
+        return service.register(admin);
+    }
+
+    // Login
+    @PostMapping("/login")
+    public Admin login(@RequestParam String email, @RequestParam String password) {
+        return service.login(email, password);
+    }
+
+    // Logout
+    @PostMapping("/logout")
+    public String logout() {
+        return service.logout();
+    }
+
+    // Get all admins
+    @GetMapping("/all")
+    public List<Admin> getAll() {
+        return service.getAll();
+    }
+
+    // Get admin by id
+    @GetMapping("/{id}")
+    public Optional<Admin> getById(@PathVariable Long id) {
+        return service.getById(id);
+    }
+
+    // Update admin
+    @PutMapping("/{id}")
+    public Admin update(@PathVariable Long id, @RequestBody Admin admin) {
+        return service.update(id, admin);
+    }
+
+    // Delete admin
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        service.delete(id);
+        return "Admin deleted successfully!";
+    }
+}

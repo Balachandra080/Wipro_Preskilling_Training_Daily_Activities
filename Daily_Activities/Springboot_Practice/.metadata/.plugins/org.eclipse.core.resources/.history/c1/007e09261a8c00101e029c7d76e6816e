@@ -1,0 +1,33 @@
+package com.gl.pizza.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.gl.pizza.model.User;
+import com.gl.pizza.service.UserService;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    @Autowired
+    private UserService service;
+
+    // Register
+    @PostMapping("/register")
+    public String register(@RequestBody User user) {
+        service.register(user);
+        return "User registered successfully!";
+    }
+
+    // Login
+    @PostMapping("/login")
+    public User login(@RequestParam String email, @RequestParam String password) {
+        return service.login(email, password);
+    }
+
+    // Logout
+    @GetMapping("/logout")
+    public String logout() {
+        return service.logout();
+    }
+}

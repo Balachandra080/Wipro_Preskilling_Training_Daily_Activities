@@ -1,0 +1,33 @@
+
+package com.gl.springboot.database;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@SpringBootApplication
+public class SpringBootDatabaseApplication implements CommandLineRunner 
+{
+	
+	@Autowired
+    StudentService studentService;  
+
+    public static void main(String[] args) 
+    {
+        SpringApplication.run(SpringBootDatabaseApplication.class, args);
+    }
+    @Override
+    public void run(String... args) throws Exception 
+    {
+        // Creating a new student
+        Student s1 = new Student("Siva", 30);
+
+        // Using service layer to insert student
+        studentService.insertStudent(s1);
+    }
+}

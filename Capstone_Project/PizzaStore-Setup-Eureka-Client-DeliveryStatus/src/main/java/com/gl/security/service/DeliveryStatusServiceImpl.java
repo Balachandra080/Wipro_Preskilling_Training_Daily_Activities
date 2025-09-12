@@ -1,0 +1,31 @@
+package com.gl.security.service;
+
+import com.gl.security.model.DeliveryStatus;
+import com.gl.security.repo.DeliveryStatusRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.gl.security.service.DeliveryStatusServiceImpl;
+
+import java.util.List;
+
+@Service
+public class DeliveryStatusServiceImpl implements DeliveryStatusService {
+
+    @Autowired
+    private DeliveryStatusRepo repo;
+
+    @Override
+    public DeliveryStatus saveDeliveryStatus(DeliveryStatus status) {
+        return repo.save(status);
+    }
+
+    @Override
+    public List<DeliveryStatus> getAllStatuses() {
+        return repo.findAll();
+    }
+
+    @Override
+    public DeliveryStatus getStatusById(Long id) {
+        return repo.findById(id).orElse(null);
+    }
+}

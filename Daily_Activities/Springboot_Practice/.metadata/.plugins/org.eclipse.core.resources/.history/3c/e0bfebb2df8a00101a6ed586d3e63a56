@@ -1,0 +1,8 @@
+spring.application.name=Micro-Service-Server
+
+
+server-port = 9090
+
+# Disable client behavior (since this is the server itself)
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false

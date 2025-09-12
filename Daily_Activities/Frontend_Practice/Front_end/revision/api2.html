@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <meta charset="UTF-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale=1.0">
+    <body>
+        <table border ="1">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>City</th>
+                <th>Company name</th>
+            </tr>
+            </thead>
+            <tbody id = "target">
+
+            </tbody>
+        </table>
+    </body>
+</html>
+
+
+<script>
+    
+    async function getAllUsers(){
+        const apiUrl = "https://jsonplaceholder.typicode.com/users";
+        
+        var response = await fetch(apiUrl);
+
+        var UsersList = await response.json();
+        var rows = "";
+        //wew are gonna create rows under the "target"ie body
+        var target = document.getElementById("target");
+
+        UsersList.forEach(temp => {
+            console.log(temp['username']+" - "+temp['email']+" - "+temp['address']['city']+" - "+temp['company']['name']);
+            rows += '<tr> <td>'+temp['username']+'</td> <td>'+temp['email']+'</td> <td>'+temp['address']['city']+'</td> <td>'+temp['company']['name']+'</td> </tr>';
+        });
+        target.innerHTML = rows;
+        
+
+    }
+    getAllUsers();
+</script>

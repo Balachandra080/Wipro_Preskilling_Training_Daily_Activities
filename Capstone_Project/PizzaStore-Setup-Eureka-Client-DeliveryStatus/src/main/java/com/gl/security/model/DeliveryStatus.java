@@ -1,0 +1,38 @@
+package com.gl.security.model;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "delivery_status")
+public class DeliveryStatus {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long orderId;
+    private String status;
+    private LocalDateTime updatedDateTime;
+
+    public DeliveryStatus() {}
+
+    public DeliveryStatus(Long orderId, String status, LocalDateTime updatedDateTime) {
+        this.orderId = orderId;
+        this.status = status;
+        this.updatedDateTime = updatedDateTime;
+    }
+
+    // Getters & Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Long getOrderId() { return orderId; }
+    public void setOrderId(Long orderId) { this.orderId = orderId; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public LocalDateTime getUpdatedDateTime() { return updatedDateTime; }
+    public void setUpdatedDateTime(LocalDateTime updatedDateTime) { this.updatedDateTime = updatedDateTime; }
+}

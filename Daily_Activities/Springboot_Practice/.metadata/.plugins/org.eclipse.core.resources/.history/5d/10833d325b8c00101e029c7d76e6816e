@@ -1,0 +1,46 @@
+package com.gl.pizza.service;
+
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.gl.pizza.model.Food;
+import com.gl.pizza.repo.FoodRepo;
+
+
+// (Full CRUD (Admin manages menu))
+
+
+@Service
+public class FoodService {
+
+    @Autowired
+    private FoodRepo repo;
+
+    // Add food
+    public void add(Food food) {
+        repo.save(food);
+    }
+
+    // Update food
+    public void update(Food food) {
+        repo.save(food);
+    }
+
+    // Delete food
+    public void delete(Long id) {
+        repo.deleteById(id);
+    }
+
+    // Get all food items
+    public List<Food> getAll() {
+        return repo.findAll();
+    }
+
+    // Get food by ID
+    public Food getById(Long id) {
+        Optional<Food> opt = repo.findById(id);
+        return opt.orElse(null);
+    }
+}

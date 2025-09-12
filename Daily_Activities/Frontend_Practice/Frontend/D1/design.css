@@ -1,0 +1,40 @@
+div.heading {
+    color: blue;
+    font-style: Italic;
+}
+
+b.heading{
+    color: orange;
+}
+
+.introduction b{
+    font-size: 30px;
+}
+
+.introduction>b{
+    color: maroon;
+}
+
+b{
+    text-decoration: underline;
+}
+
+.introduction p b{
+    font-style: italic;
+}
+
+.introduction>b{
+    color: goldenred;
+}
+
+.form{
+    background-color: antiquewhite;
+    padding 10 px;
+    border: black 2px solid;
+    width: 300 px
+}
+
+.form label{
+    display: black;
+    font-weight: bold;
+}

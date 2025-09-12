@@ -1,0 +1,25 @@
+package com.gl.jpa.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class ApiService {
+    private final RestTemplate restTemplate;
+
+    public ApiService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    // AUTH
+    public String registerUser(Map<String, Object> user) {
+        return restTemplate.postForObject("http://auth-service/auth/register", user, String.class);
+    }
+
+    public String loginUser(Map<String, Object> loginData) {
+        return restTemplate.postForObject("http://auth-service/auth/login", loginData, String.class);
+    }
+}

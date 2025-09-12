@@ -1,0 +1,53 @@
+package com.gl.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+@Controller
+public class HotelController {
+
+    @GetMapping("/")
+    public String addHotelForm() {
+        // will open addhotel.jsp form
+        return "addhotel";
+    }
+
+    @PostMapping("/savehotel")
+    public ModelAndView saveHotel(@RequestParam("name") String name,
+                                  @RequestParam("address") String address) {
+
+        try {
+            // Database connection details
+            String url = "jdbc:mysql://localhost:3306/wipro_2025_hibernate";
+            String username = "root";
+            String password = "Balachandra@123";
+
+            // Create datasource
+            SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+            dataSource.setDriver(new com.mysql.cj.jdbc.Driver());
+            dataSource.setUrl(url);
+            dataSource.setUsername(username);
+            dataSource.setPassword(password);
+
+            // Create template
+            JdbcTemplate template = new JdbcTemplate(dataSource);
+
+            // Insert query
+            String insert = "INSERT INTO hotel (name, address) VALUES (?, ?)";
+            template.update(insert, name, address);
+
+            // Success page
+            return "insertsuccess";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Failure page
+            return "insertfail";
+        }
+    }
+}

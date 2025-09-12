@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Even or Odd</title>
+    <link href="login.css" rel="stylesheet">
+</head>
+<body>
+        <label>Enter a number:</label>
+        <input type="number" id="number">
+        <button type="button" onclick="checkEvenOdd()">Check</button>
+
+    <script>
+        function checkEvenOdd() 
+        {
+            var num = document.getElementById("number").value;
+
+            if (num % 2 === 0) 
+            {
+                console.log(num + " is Even");
+            } 
+            else 
+            {
+                console.log(num + " is Odd");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+package com.gl.security.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.gl.security.model;
+
+public interface DeliveryStatusRepository extends JpaRepository<DeliveryStatus, Long> {
+    DeliveryStatus findByOrderId(Long orderId);
+}

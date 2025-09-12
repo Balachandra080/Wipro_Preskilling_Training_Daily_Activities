@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <h4>Add To The todos in JSONPlaceholder</h4>
+    <button onclick="getAllTodos()">Get All Todos</button>
+
+    <ul id="todoList"></ul>
+</body>
+</html>
+
+<script>
+function getAllTodos() 
+{
+    const apiUrl = "https://jsonplaceholder.typicode.com/todos";
+    $.ajax({
+        url: apiUrl,
+        method: "GET",
+        dataType: "json",
+        success: function (data) 
+        {
+            console.log(data);
+            $("#todoList").empty(); 
+            data.forEach(todo => {
+                $("#todoList").append(`<li>${todo.id} - ${todo.title}</li>`);
+            });
+        },
+        error: function (xhr, status, error) 
+        {
+            console.log(xhr);
+            console.log(status);
+            console.log(error);
+        }
+    });
+}
+</script>

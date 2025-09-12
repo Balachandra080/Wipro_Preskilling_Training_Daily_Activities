@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+    test();
+
+    function test() {
+        var currentDate = new Date();
+        console.log(currentDate);
+
+        var dob = new Date(2000, 0, 30);
+        console.log(dob);
+
+        var trainDateTime = new Date("2025-08-15T16:30:45");
+        console.log(trainDateTime);
+
+        console.log("-------------------------");
+
+        console.log(trainDateTime.getFullYear());
+        console.log(trainDateTime.getMonth());    // 0 = Jan, 11 = Dec
+        console.log(trainDateTime.getDate());
+        console.log(trainDateTime.getDay());      // 0 = Sunday, 6 = Saturday
+        console.log(trainDateTime.getHours());    // 0 - 23
+        console.log(trainDateTime.getMinutes());
+        console.log(trainDateTime.getSeconds());
+
+        trainDateTime.setDate(20);
+        console.log("train date after date change: ", trainDateTime);
+
+        console.log(trainDateTime.getFullYear());
+    }
+</script>

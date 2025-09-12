@@ -1,0 +1,67 @@
+package com.gl.pizza.controller;
+
+import com.gl.pizza.model.User;
+import com.gl.pizza.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+// REST Controller to handle User API endpoints
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    @Autowired
+    private UserService service;
+
+    // ---------------------------
+    // 🔹 AUTHENTICATION ENDPOINTS
+    // ---------------------------
+
+    // Register new user
+    @PostMapping("/register")
+    public User register(@RequestBody User user) {
+        return service.register(user);
+    }
+
+    // Login user
+    @PostMapping("/login")
+    public User login(@RequestParam String email, @RequestParam String password) {
+        return service.login(email, password);
+    }
+
+    // Logout user
+    @GetMapping("/logout")
+    public String logout() {
+        return service.logout();
+    }
+
+    // ---------------------------
+    // 🔹 CRUD ENDPOINTS
+    // ---------------------------
+
+    // Get all users
+    @GetMapping
+    public List<User> getAllUsers() {
+        return service.getAllUsers();
+    }
+
+    // Get user by ID
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return service.getUserById(id);
+    }
+
+    // Update user by ID
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        return service.updateUser(id, user);
+    }
+
+    // Delete user by ID
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        return service.deleteUser(id);
+    }
+}

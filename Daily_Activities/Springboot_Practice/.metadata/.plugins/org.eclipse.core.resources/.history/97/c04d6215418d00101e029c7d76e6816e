@@ -1,0 +1,38 @@
+package com.gl.security.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gl.security.model.Order;
+import com.gl.security.repo.OrderRepo;
+
+@Service
+public class OrderService {
+	
+	@Autowired
+	OrderRepo orderRepo;
+	
+	// Save new order
+    public Order saveOrder(Order order) {
+        return orderRepo.save(order);
+    }
+
+    // Get all orders
+    public List<Order> getAllOrders() {
+        return orderRepo.findAll();
+    }
+
+    // Get order by ID
+    public Optional<Order> getOrderById(Long id) {
+        return orderRepo.findById(id);
+    }
+
+    // Delete order by ID
+    public void deleteOrder(Long id) {
+        orderRepo.deleteById(id);
+    }
+
+}

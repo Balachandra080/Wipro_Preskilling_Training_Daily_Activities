@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Pizzastore-Setup-Consumer-ADMIN-JSP">
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <property name="context-root" value="Pizzastore-Setup-Consumer-ADMIN-JSP"/>
+        <property name="java-output-path" value="/Pizzastore-Setup-Consumer-ADMIN-JSP/target/classes"/>
+    </wb-module>
+</project-modules>

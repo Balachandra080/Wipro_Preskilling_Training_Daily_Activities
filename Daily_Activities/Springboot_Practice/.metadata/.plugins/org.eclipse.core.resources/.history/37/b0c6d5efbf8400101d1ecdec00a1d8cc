@@ -1,0 +1,21 @@
+package com.gl.springboot.database;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class StudentService {
+	
+	@Autowired
+	StudentRepo repo;
+	
+	public void insertStudent(Student student) {
+		repo.save(student);
+	}
+	
+	public void insertManyStudents(List<Student> students) {
+		repo.saveAll(students);
+	}
+}

@@ -1,0 +1,42 @@
+package com.gl.jpa.service;
+
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
+
+@Service
+public class ApiService {
+
+    private final RestTemplate restTemplate;
+    private final String USER_SERVICE_URL = "http://USER_CLIENT/user"; 
+    // 👆 replace with your User Microservice port or Eureka service name
+
+    public ApiService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    // Register user
+    public void registerUser(Map<String, String> userData) {
+        restTemplate.postForObject(USER_SERVICE_URL + "/register", userData, String.class);
+    }
+
+    // Login user and return token
+    public String loginUser(Map<String, String> loginData) {
+        ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
+                USER_SERVICE_URL + "/login",
+                HttpMethod.POST,
+                new HttpEntity<>(loginData),
+                new ParameterizedTypeReference<Map<String, Object>>() {}
+        );
+
+        if (response.getBody() != null) {
+            return (String) response.getBody().get("token");
+        }
+        return null;
+    }
+}

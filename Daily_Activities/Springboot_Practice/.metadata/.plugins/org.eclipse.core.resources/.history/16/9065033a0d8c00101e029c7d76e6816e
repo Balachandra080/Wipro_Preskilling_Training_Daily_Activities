@@ -1,0 +1,8 @@
+package com.gl.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.gl.pizza.model.CartItem;
+
+public interface CartItemRepo extends JpaRepository<CartItem, Long> {
+}

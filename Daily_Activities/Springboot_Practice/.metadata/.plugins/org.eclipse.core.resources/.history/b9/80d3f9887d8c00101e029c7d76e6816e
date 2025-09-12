@@ -1,0 +1,60 @@
+package com.gl.pizza.service;
+
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.gl.pizza.model.Order;
+import com.gl.pizza.repo.OrderRepo;
+
+
+// (Place order, cancel order, admin can accept/reject)
+
+
+@Service
+public class OrderService {
+
+    @Autowired
+    private OrderRepo repo;
+
+    // Place new order
+    public void placeOrder(Order order) {
+        repo.save(order);
+    }
+
+    // Cancel order (user)
+    public void cancelOrder(Long id) {
+        Optional<Order> opt = repo.findById(id);
+        if (opt.isPresent()) {
+            Order order = opt.get();
+            order.setStatus("CANCELLED");
+            repo.save(order);
+        }
+    }
+
+    // Accept order (admin)
+    public void acceptOrder(Long id) {
+        Optional<Order> opt = repo.findById(id);
+        if (opt.isPresent()) {
+            Order order = opt.get();
+            order.setStatus("ACCEPTED");
+            repo.save(order);
+        }
+    }
+
+    // Reject order (admin)
+    public void rejectOrder(Long id) {
+        Optional<Order> opt = repo.findById(id);
+        if (opt.isPresent()) {
+            Order order = opt.get();
+            order.setStatus("REJECTED");
+            repo.save(order);
+        }
+    }
+
+    // Get all orders
+    public List<Order> getAll() {
+        return repo.findAll();
+    }
+}

@@ -1,0 +1,88 @@
+package com.gl.pizza.controller;
+
+
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gl.pizza.repository.UserRepository;
+import com.gl.pizza.repository.RoleRepository;
+import com.gl.pizza.model.Role;
+import com.gl.pizza.model.User;
+import com.gl.pizza.service.JWTService;
+
+@RestController
+public class AuthController {
+	
+	@Autowired
+	UserRepository userRepository;
+	@Autowired
+	RoleRepository roleRepository;
+	@Autowired
+	JWTService jwtService;
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	@PostMapping("/open/sign-up-admin")
+	public String signupAdmin(@RequestParam String username, @RequestParam String password) {
+	if(userRepository.existsByUsername(username)) {
+		
+	     throw new RuntimeException("Username already used");
+	}
+	
+	Role adminRole = roleRepository.findByName("ROLE_ADMIN").get();
+	
+
+	
+
+	User user = new User(username, password);
+	user.setPassword(passwordEncoder.encode(password));
+	user.setRoles( Set.of(adminRole));
+	userRepository.save(user);
+	//craete the token for this user
+	String token = jwtService.generateToken(user.getUsername(), Map.of("roles", "ROLE_ADMIN") );
+	return token;
+	}
+	
+	@PostMapping("/open/sign-up-user")
+	public String signupUser(@RequestParam String username, @RequestParam String password) {
+	if(userRepository.existsByUsername(username)) {
+	throw new RuntimeException("Username already used");
+	}
+	Role adminRole = roleRepository.findByName("ROLE_USER").get();
+	User user = new User(username, password);
+	user.setPassword(passwordEncoder.encode(password));
+	user.setRoles( Set.of(adminRole));
+	userRepository.save(user);
+	//craete the token for this user
+	String token = jwtService.generateToken(username, Map.of("roles", "ROLE_USER") );
+	return token;
+	}
+	
+	@PostMapping("/open/login")
+	public String login(@RequestParam String username, @RequestParam String password) {
+	    // 1. Check if user exists
+	    User user = userRepository.findByUsername(username)
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+
+	    // 2. Validate password
+	    if (!passwordEncoder.matches(password, user.getPassword())) {
+	        throw new RuntimeException("Invalid password");
+	    }
+
+	    // 3. Get user roles
+	    String role = user.getRoles().stream()
+	            .map(Role::getName)
+	            .findFirst()
+	            .orElse("ROLE_USER");
+
+	    // 4. Generate new token
+	    return jwtService.generateToken(user.getUsername(), Map.of("roles", role));
+	}
+
+}

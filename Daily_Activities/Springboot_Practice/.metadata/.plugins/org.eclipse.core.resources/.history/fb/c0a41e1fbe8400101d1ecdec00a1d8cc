@@ -1,0 +1,7 @@
+package com.gl.springboot.database;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StudentRepo extends JpaRepository<Student, Integer> {
+
+}

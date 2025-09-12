@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Bean 1 with constructor args -->
+    <bean class="com.gl.spring.Automobile" id="auto1" scope="singleton">
+        <constructor-arg value="red"></constructor-arg>
+        <constructor-arg value="20"></constructor-arg>
+    </bean>
+
+    <!-- Bean 2 with constructor args -->
+    <bean class="com.gl.spring.Automobile" id="auto2" scope="singleton">
+        <constructor-arg value="red"></constructor-arg>
+    </bean>
+
+    <!-- Bean 3 without constructor args -->
+    <bean class="com.gl.spring.Automobile" id="auto3" scope="singleton"></bean>
+</beans>

@@ -1,0 +1,32 @@
+package com.gl.pizza.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.gl.pizza.model.Cart;
+import com.gl.pizza.service.CartService;
+
+@RestController
+@RequestMapping("/api/carts")
+public class CartController {
+
+    @Autowired
+    private CartService service;
+
+    @PostMapping("/create")
+    public String createCart(@RequestBody Cart cart) {
+        service.add(cart);   // use add instead of create
+        return "Cart created successfully!";
+    }
+
+    @GetMapping("/{id}")
+    public Cart getCartById(@PathVariable Long id) {
+        return service.getById(id);   // use getById instead of getCartByUser
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteCart(@PathVariable Long id) {
+        service.delete(id);   // use delete instead of clear
+        return "Cart deleted successfully!";
+    }
+}

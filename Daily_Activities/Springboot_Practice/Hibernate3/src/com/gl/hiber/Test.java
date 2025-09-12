@@ -1,0 +1,67 @@
+package com.gl.hiber;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class Test {
+
+    public static void main(String[] args) {
+
+        try {
+            // Load Hibernate configuration
+            SessionFactory factory = new Configuration().configure().buildSessionFactory();
+
+            // Open a session
+            Session session = factory.openSession();
+
+            // Start a transaction
+            Transaction tx = session.beginTransaction();
+            
+            /*
+            Student s1 = new Student("s1");
+            Bank b1 = new Bank("A001", s1);
+            Bank b2 = new Bank("A002", s1);
+
+            Student s2 = new Student("s2");
+            Bank b3 = new Bank("A003", s2);
+            Bank b4 = new Bank("A004", s2);
+            Bank b5 = new Bank("A005", s2);
+
+            session.save(s1);
+            session.save(b1);
+            session.save(b2);
+
+            session.save(s2);
+            session.save(b3);
+            session.save(b4);
+            session.save(b5);
+            
+            */
+           
+         // Fetching Bank by id
+            Bank b1 = session.get(Bank.class, 3);
+            System.out.println("Bank: " + b1.getAcNumber());
+            System.out.println("Student: " + b1.getStudent().getName());
+
+            // Fetching Student by id
+            Student s2 = session.get(Student.class, 2);
+            System.out.println("Student: " + s2.getName());
+            for (Bank temp : s2.getBanks()) {
+                System.out.println("AC: " + temp.getAcNumber());
+            }
+
+            
+            // Commit transaction
+            tx.commit();
+
+            session.close();
+
+
+        } catch (Exception ex) {
+            System.out.println("❌ Error in one-to-one mapping: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+}

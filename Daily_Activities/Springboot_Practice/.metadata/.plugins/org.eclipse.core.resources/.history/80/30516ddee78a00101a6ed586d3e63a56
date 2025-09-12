@@ -1,0 +1,20 @@
+spring.application.name=Micro-Service-Client-Course
+
+
+server.port=8090
+
+# Database Configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/wipro_ms
+spring.datasource.username=root
+spring.datasource.password=Balachandra@123
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# JPA Configuration
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+# Eureka Server
+eureka.client.service-url.defaultZone=http://localhost:9090/eureka
+spring.application.name=Course-Micro-Service
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true

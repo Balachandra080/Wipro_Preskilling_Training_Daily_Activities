@@ -1,0 +1,20 @@
+<script>
+
+    //test function with promise - even though i take time , i will return something so please wait
+    function test() 
+    {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve("Good evening");
+            }, 5000);
+        });
+    }
+
+    async function trail()
+    {
+        var response = await test();
+        console.log(response);
+    }
+
+    trail();
+</script>

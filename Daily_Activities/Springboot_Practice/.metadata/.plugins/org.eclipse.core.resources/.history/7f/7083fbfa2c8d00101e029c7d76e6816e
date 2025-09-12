@@ -1,0 +1,58 @@
+package com.gl.pizza.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gl.pizza.model.Item;
+import com.gl.pizza.model.Category;
+import com.gl.pizza.repo.ItemRepository;
+import com.gl.pizza.repo.CategoryRepository; // <-- add this
+
+@Service
+public class ItemService {
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository; // <-- add this
+
+    // Save or update item
+    public Item saveItem(Item item) {
+        // Fetch full category from DB to avoid null fields
+        if (item.getCategory() != null && item.getCategory().getId() != null) {
+            Optional<Category> categoryOpt = categoryRepository.findById(item.getCategory().getId());
+            if (categoryOpt.isPresent()) {
+                item.setCategory(categoryOpt.get());
+            } else {
+                // Optionally, throw an exception if category doesn't exist
+                throw new RuntimeException("Category with ID " + item.getCategory().getId() + " not found");
+            }
+        }
+        return itemRepository.save(item);
+    }
+
+    // Get all items
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
+    }
+
+    // Get item by ID
+    public Item getItemById(Long id) {
+        Optional<Item> optionalItem = itemRepository.findById(id);
+        return optionalItem.orElse(null);
+    }
+
+    // Get items by category ID
+    public List<Item> getItemsByCategory(Long categoryId) {
+        return itemRepository.findByCategoryId(categoryId);
+    }
+
+    // Delete item by ID
+    public void deleteItem(Long id) {
+        itemRepository.deleteById(id);
+    }
+}

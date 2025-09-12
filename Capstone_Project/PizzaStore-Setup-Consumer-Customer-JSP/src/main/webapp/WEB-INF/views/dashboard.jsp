@@ -1,0 +1,20 @@
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Admin Dashboard</h2>
+        <div class="text-center mt-4">
+            <a href="/categories" class="btn btn-outline-primary m-2">Manage Categories</a>
+            <a href="/items" class="btn btn-outline-success m-2">Manage Items</a>
+            <a href="/orders" class="btn btn-outline-warning m-2">Manage Orders</a>
+            <a href="/auth/logout" class="btn btn-outline-danger m-2">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

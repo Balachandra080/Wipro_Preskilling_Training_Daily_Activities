@@ -1,0 +1,45 @@
+.table-1 thead tr th {
+    background-color: #aa0202;
+    color: #ffffff;
+}
+
+.table-1 tbody tr:nth-child(even) td {
+    background-color: #ffd6d6;
+    color: #000000;
+}
+
+.table-1 tbody tr:nth-child(odd) td {
+    background-color: #d6dbff;
+    color: #000000;
+}
+
+
+.table-2 thead tr th {
+    background-color: #aa0202;
+    color: #ffffff;
+}
+
+.table-2 tbody tr:nth-child(2) td {
+    background-color: #658af9;
+    color: #000000;
+}
+
+.table-2 tbody tr:nth-child(3n) td {
+    background-color: #fffb83;
+    color: #000000;
+}
+
+.table-3 thead tr th {
+    background-color: #aa0202;
+    color: #ffffff;
+}
+
+.table-3 tbody tr:nth-child(n+4) td {
+    background-color: #fffb83;
+    color: #000000;
+}
+
+.table-3 tbody tr:nth-child(-n+3) td {
+    background-color: #fffb83;
+    color: #000000;
+}

@@ -1,0 +1,5 @@
+package com.gl.jpa.model;
+
+public class Item {
+
+}

@@ -1,0 +1,62 @@
+package com.gl.security;
+
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+@RestController
+public class AuthController {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private JWTService jwtService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/open/sign-up-admin")
+    public String signupAdmin(@RequestParam String username, @RequestParam String password) {
+        if (userRepository.existsByUsername(username)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
+        }
+
+        Role adminRole = roleRepository.findByName("ROLE_ADMIN")
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Admin role not found"));
+
+        User user = new User(username, password);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRoles(Set.of(adminRole));
+        userRepository.save(user);
+
+        return jwtService.generateToken(user.getUsername(), Map.of("roles", "ROLE_ADMIN"));
+    }
+
+    @PostMapping("/open/sign-up-user")
+    public String signupUser(@RequestParam String username, @RequestParam String password) {
+        if (userRepository.existsByUsername(username)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
+        }
+
+        Role userRole = roleRepository.findByName("ROLE_USER")
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User role not found"));
+
+        User user = new User(username, password);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRoles(Set.of(userRole));
+        userRepository.save(user);
+
+        return jwtService.generateToken(user.getUsername(), Map.of("roles", "ROLE_USER"));
+    }
+}

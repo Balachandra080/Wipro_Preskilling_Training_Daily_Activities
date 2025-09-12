@@ -1,0 +1,45 @@
+package com.gl.hiber;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class Test {
+
+    public static void main(String[] args) {
+        try {
+            // Load Hibernate configuration
+            SessionFactory factory = new Configuration().configure().buildSessionFactory();
+
+            // Connect using the above configuration
+            Session session = factory.openSession();
+
+            // Open a transaction
+            Transaction tx = session.beginTransaction();
+
+            // Create Passport objects
+            Passport p1 = new Passport("PASS0001");
+            Passport p2 = new Passport("PASS0002");
+
+            // Create PanCard objects
+            PanCard pan1 = new PanCard("PAN0001");
+            PanCard pan2 = new PanCard("PAN0002");
+
+            // Save objects
+            session.save(p1);
+            session.save(p2);
+            session.save(pan1);
+            session.save(pan2);
+
+            // Commit the transaction
+            tx.commit();
+
+            // Close session
+            session.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,0 +1,53 @@
+package com.gl.jpa.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gl.jpa.model.Product;
+import com.gl.jpa.repo.ProductRepo;
+
+@Service
+public class ProductService {
+
+    @Autowired
+    private ProductRepo repo;
+
+    // Add a product
+    public void add(Product product) {
+        repo.save(product);
+    }
+
+    // Get all products
+    public List<Product> getAll() {
+        return repo.findAll();
+    }
+
+    // Get product by ID
+    public Product getById(int id) {
+        Optional<Product> productOpt = repo.findById(id);
+        if (productOpt.isPresent()) {
+            return productOpt.get();
+        }
+        return null;
+    }
+    
+    public List<Product> getByPriceAbove(double price) {
+        return repo.findByPriceGreaterThan(price);
+    }
+
+
+    // Update product
+    public void update(Product product) {
+        repo.save(product);
+    }
+
+    // Delete product
+    public void delete(int id) {
+        Product product = new Product();
+        product.setId(id);
+        repo.delete(product);
+    }
+}

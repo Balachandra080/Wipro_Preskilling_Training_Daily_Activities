@@ -1,0 +1,13 @@
+package com.gl.security.client;
+
+import com.gl.security.dto.OrderDto;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "order-service", url = "http://localhost:7651/orders") 
+public interface OrderClient {
+
+    @GetMapping("/{id}")
+    OrderDto getOrderById(@PathVariable("id") Long id);
+}

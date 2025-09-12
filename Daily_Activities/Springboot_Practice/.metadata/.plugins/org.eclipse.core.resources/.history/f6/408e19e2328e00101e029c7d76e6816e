@@ -1,0 +1,65 @@
+package com.gl.jpa.controller;
+
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import com.gl.jpa.service.ApiService;
+
+import java.util.Map;
+
+@Controller
+@RequestMapping("/auth")
+public class AuthController {
+
+    private final ApiService apiService;
+
+    public AuthController(ApiService apiService) {
+        this.apiService = apiService;
+    }
+
+    // Show Register Form
+    @GetMapping("/register")
+    public String showRegisterForm() {
+        return "register"; // JSP page name
+    }
+
+    // Handle Register Request
+    @PostMapping("/register")
+    public String registerUser(@RequestParam String username,
+                               @RequestParam String password,
+                               @RequestParam String userRole) {
+        apiService.registerUser(Map.of(
+            "username", username,
+            "password", password,
+            "userRole", userRole
+        ));
+        return "redirect:/auth/login";
+    }
+
+
+    // Show Login Form
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "login"; // JSP page name
+    }
+
+    // Handle Login Request
+    @PostMapping("/login")
+    public String loginUser(@RequestParam String username,
+                            @RequestParam String password,
+                            HttpSession session) {
+        String token = apiService.loginUser(Map.of("username", username, "password", password));
+        if (token != null) {
+            session.setAttribute("token", token);
+            return "redirect:/categories"; // after login, go to categories page
+        }
+        return "redirect:/auth/login?error=true"; // back to login with error
+    }
+
+    // Logout
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/auth/login";
+    }
+}

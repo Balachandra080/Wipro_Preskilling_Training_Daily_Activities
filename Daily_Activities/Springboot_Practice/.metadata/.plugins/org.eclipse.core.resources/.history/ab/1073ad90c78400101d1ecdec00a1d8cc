@@ -1,0 +1,95 @@
+/*
+package com.gl.springboot.database;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class StudentService {
+	
+	@Autowired
+	StudentRepo repo;
+	
+	public void insertStudent(Student student) {
+		repo.save(student);
+	}
+	
+	public void insertManyStudents(List<Student> students) {
+		repo.saveAll(students);
+	}
+}
+
+*/
+
+package com.gl.springboot.database;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+
+
+//bean - by java
+//this is business logic layer - developer
+@Service
+public class StudentService {
+	@Autowired
+	StudentRepo repo;
+	public void insertStudent(Student student) {
+		if(student.getAge()<5) {
+			System.err.println("Student cannote be added");
+		}else {
+			repo.save(student);
+			System.out.println("Student inserted");
+		}
+		
+	}
+	public void  insertManyStudents(List<Student> students) {
+		repo.saveAll(students);
+	}
+	public List<Student>getAllStudents(){
+		List<Student>students = repo.findAll();
+		return students;
+	}
+	
+	public Student getStudentById(int id) {
+		Optional<Student> student = repo.findById(id);
+		if(student.get() == null) {
+			System.err.println("No student found with id "+id);
+			return null;
+		}else {
+			return student.get();
+		}
+	}
+	
+	public List<Student> getAllStudentOrderByAge() {
+		return repo.findAll(Sort.by("age"));
+	}
+	
+	
+	//select * from student where name like ?
+	public boolean searchByName(String name) {
+	    // Create a sample object matching the requirement
+	    Student studentSample = new Student();
+	    studentSample.setName(name);
+
+	    // Create where clause using ExampleMatcher
+	    ExampleMatcher exampleMatcher = ExampleMatcher.matching()
+	            .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains()) // LIKE %name%
+	            .withIgnorePaths("id", "age"); // ignore these fields
+
+	    // Merge the where clause with the sample object
+	    Example<Student> example = Example.of(studentSample, exampleMatcher);
+
+	    // return true if such a record exists
+	    return repo.exists(example);
+	}
+
+
+}

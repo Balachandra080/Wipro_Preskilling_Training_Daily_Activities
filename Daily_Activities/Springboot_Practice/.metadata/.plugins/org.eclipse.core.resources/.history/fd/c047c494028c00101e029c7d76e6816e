@@ -1,0 +1,42 @@
+package com.gl.model;
+
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "bills")
+public class Bill {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long billId;
+
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    private Double totalAmount;
+    private LocalDateTime generatedAt = LocalDateTime.now();
+
+    // Constructors
+    public Bill() {}
+
+    public Bill(Order order, Double totalAmount) {
+        this.order = order;
+        this.totalAmount = totalAmount;
+    }
+
+    // Getters & Setters
+    public Long getBillId() { return billId; }
+    public void setBillId(Long billId) { this.billId = billId; }
+
+    public Order getOrder() { return order; }
+    public void setOrder(Order order) { this.order = order; }
+
+    public Double getTotalAmount() { return totalAmount; }
+    public void setTotalAmount(Double totalAmount) { this.totalAmount = totalAmount; }
+
+    public LocalDateTime getGeneratedAt() { return generatedAt; }
+    public void setGeneratedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; }
+}

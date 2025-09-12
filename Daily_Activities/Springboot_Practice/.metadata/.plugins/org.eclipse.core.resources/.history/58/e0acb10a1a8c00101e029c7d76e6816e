@@ -1,0 +1,36 @@
+package com.gl.pizza.service;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.gl.pizza.model.User;
+import com.gl.pizza.repo.UserRepo;
+
+// (Register, login, logout)
+
+
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepo repo;
+
+    // Register new user
+    public void register(User user) {
+        repo.save(user);
+    }
+
+    // User login (dummy for now)
+    public User login(String email, String password) {
+        return repo.findAll()
+                   .stream()
+                   .filter(u -> u.getEmail().equals(email) && u.getPassword().equals(password))
+                   .findFirst()
+                   .orElse(null);
+    }
+
+    // Logout
+    public String logout() {
+        return "User logged out successfully!";
+    }
+}

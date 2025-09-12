@@ -1,0 +1,5 @@
+package com.gl.pizza.model;
+
+public class Role {
+
+}

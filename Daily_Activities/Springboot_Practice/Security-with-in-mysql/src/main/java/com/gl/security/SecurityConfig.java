@@ -1,0 +1,48 @@
+package com.gl.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
+
+@Configuration
+public class SecurityConfig {
+
+    @Autowired
+    CustomUserDetailService customUserDetailService;
+
+    // Encrypt the password
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    // Authentication
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(customUserDetailService);  // loading the user from service file
+        authProvider.setPasswordEncoder(passwordEncoder());           // setting the encrypt algorithm
+        return authProvider;
+    }
+
+    // Authorization 
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/create-user", "/create-role").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/student/**").hasRole("STUDENT")
+                .anyRequest().authenticated()
+            )
+            .httpBasic(); // use basic auth
+
+        return http.build();
+    }
+}

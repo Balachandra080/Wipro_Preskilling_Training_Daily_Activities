@@ -1,0 +1,105 @@
+package com.gl.model;
+
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.*;
+
+@Entity
+@Table(name = "orders")
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private String status;
+    private String deliveryMode;
+    private LocalDateTime orderDate = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Bill bill;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<Notification> notifications = new ArrayList<>();
+
+    // Default Constructor
+    public Order() {}
+
+    public Order(User user, String status, String deliveryMode) {
+        this.user = user;
+        this.status = status;
+        this.deliveryMode = deliveryMode;
+    }
+
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getDeliveryMode() {
+		return deliveryMode;
+	}
+
+	public void setDeliveryMode(String deliveryMode) {
+		this.deliveryMode = deliveryMode;
+	}
+
+	public LocalDateTime getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(LocalDateTime orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+
+	public Bill getBill() {
+		return bill;
+	}
+
+	public void setBill(Bill bill) {
+		this.bill = bill;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+}

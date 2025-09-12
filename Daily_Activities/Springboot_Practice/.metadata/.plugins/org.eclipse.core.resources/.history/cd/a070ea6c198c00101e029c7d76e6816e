@@ -1,0 +1,31 @@
+package com.gl.pizza.service;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.gl.pizza.model.Admin;
+import com.gl.pizza.repo.AdminRepo;
+
+
+// (Only login/logout for now (we’ll later hook it into security/auth))
+
+@Service
+public class AdminService {
+
+    @Autowired
+    private AdminRepo repo;
+
+    // Admin login (dummy for now, later JWT/Security)
+    public Admin login(String email, String password) {
+        return repo.findAll()
+                   .stream()
+                   .filter(a -> a.getEmail().equals(email) && a.getPassword().equals(password))
+                   .findFirst()
+                   .orElse(null);
+    }
+
+    // Admin logout (dummy placeholder)
+    public String logout() {
+        return "Admin logged out successfully!";
+    }
+}

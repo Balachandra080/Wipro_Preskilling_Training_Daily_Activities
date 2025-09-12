@@ -1,0 +1,44 @@
+package com.gl.pizza.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import com.gl.pizza.model.Food;
+import com.gl.pizza.service.FoodService;
+
+@RestController
+@RequestMapping("/api/foods")
+public class FoodController {
+
+    @Autowired
+    private FoodService service;
+
+    @PostMapping("/add")
+    public String addFood(@RequestBody Food food) {
+        service.add(food);
+        return "Food added successfully!";
+    }
+
+    @PutMapping("/update")
+    public String updateFood(@RequestBody Food food) {
+        service.update(food);
+        return "Food updated successfully!";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteFood(@PathVariable Long id) {
+        service.delete(id);
+        return "Food deleted successfully!";
+    }
+
+    @GetMapping("/all")
+    public List<Food> getAllFoods() {
+        return service.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Food getFood(@PathVariable Long id) {
+        return service.getById(id);
+    }
+}

@@ -1,0 +1,59 @@
+package com.gl.security.controller;
+
+import java.time.LocalDateTime;
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import com.gl.security.model.Order;
+import com.gl.security.service.OrderService;
+import com.gl.security.feign.UserClient;
+
+@RestController
+@RequestMapping("/orders")
+public class OrderController {
+
+    @Autowired
+    OrderService orderService;
+
+    @Autowired
+    UserClient userClient;  // call User microservice
+
+    @PostMapping("/create")
+    public Order createOrder(@RequestBody Order order) {
+        order.setOrderDateTime(LocalDateTime.now());
+        return orderService.saveOrder(order);
+    }
+
+    @GetMapping("/all")
+    public List<Order> getAllOrders() {
+        return orderService.getAllOrders();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Order> getOrderById(@PathVariable Long id) {
+        return orderService.getOrderById(id);
+    }
+
+    // New API: Get Order + User Info
+    @GetMapping("/{id}/details")
+    public Map<String, Object> getOrderWithUser(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
+        Optional<Order> order = orderService.getOrderById(id);
+
+        if (order.isPresent()) {
+            response.put("order", order.get());
+            response.put("user", userClient.getUserById(order.get().getUserId()));
+        } else {
+            response.put("error", "Order not found");
+        }
+        return response;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+        return "Order deleted successfully";
+    }
+}

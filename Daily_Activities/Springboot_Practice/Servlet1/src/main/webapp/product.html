@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Product Form</title>
+</head>
+<body>
+
+    <h2>Enter Product Details</h2>
+
+    <!-- Submitting form data to servlet -->
+    <form action="product-cal" method="get">
+        
+        <div>
+            <label>Name</label>
+            <input type="text" name="name" required />
+        </div>
+        
+        <div>
+            <label>Price</label>
+            <input type="text" name="price" required />
+        </div>
+        
+        <div>
+            <label>Discount Amount</label>
+            <input type="text" name="discount" required />
+        </div>
+        
+        <div>
+            <label>Unit</label>
+            <input type="text" name="unit" required />
+        </div>
+        
+        <div>
+            <button type="submit">Find the total</button>
+        </div>
+        
+    </form>
+
+</body>
+</html>

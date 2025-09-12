@@ -1,0 +1,27 @@
+.quote {
+    background-color: rgb(122, 122, 241);
+    margin-left: 10px;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    color: white;
+    border-radius: 10px;
+}
+.section{
+    margin-top: 100px;
+}
+.list-group-item{
+    border: none;
+}
+.design{
+    padding: 50px;
+}
+.zinc-design{
+    padding: 50px;
+}
+.subscribe{
+    letter-spacing: 2px;
+    text-align: center;
+}
+.subscribe-form .form-control, .subscribe-form .btn{
+    border-radius: 0px;
+}

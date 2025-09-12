@@ -1,0 +1,5 @@
+package com.gl.pizza.repo;
+
+public interface CreditCardDetailsRepo {
+
+}

@@ -1,0 +1,31 @@
+<script>
+    //Object literals
+
+    var student = {
+        name: "Balachandra",
+        age : 22,
+        gender : "Male",
+        writeExam : function(){
+            console.log(this.name + " is writing a exam");
+        },
+        add : function (a, b){
+            console.log("Sum : " + (a+b));
+        },
+        findEven: function(a)
+        {
+            if(a % 2 == 0)
+            {
+                console.log(a + "is even");
+            }
+            else 
+            {
+                console.log(a + "is not even");
+            }
+        }
+    };
+
+    console.log(student);
+    student.writeExam();
+    student.add(100, 200);
+    student.findEven(11);
+</script>

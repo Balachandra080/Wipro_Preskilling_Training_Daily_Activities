@@ -1,0 +1,49 @@
+package com.gl.security.controller;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gl.security.model.DeliveryStatus;
+import com.gl.security.service.DeliveryStatusService;
+
+@RestController
+@RequestMapping("/delivery-status")
+public class DeliveryStatusController {
+	
+	@Autowired
+	DeliveryStatusService deliveryStatusService;
+	
+	@PostMapping
+    public DeliveryStatus createDeliveryStatus(@RequestBody DeliveryStatus deliveryStatus) {
+        deliveryStatus.setUpdatedDateTime(LocalDateTime.now());
+        return deliveryStatusService.saveDeliveryStatus(deliveryStatus);
+    }
+
+    @GetMapping("/order/{orderId}")
+    public List<DeliveryStatus> getDeliveryStatusByOrderId(@PathVariable Long orderId) {
+        return deliveryStatusService.getDeliveryStatusByOrderId(orderId);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<DeliveryStatus> getDeliveryStatusById(@PathVariable Long id) {
+        return deliveryStatusService.getDeliveryStatusById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteDeliveryStatus(@PathVariable Long id) {
+        deliveryStatusService.deleteDeliveryStatus(id);
+        return "Delivery status deleted successfully";
+    }
+	
+
+}

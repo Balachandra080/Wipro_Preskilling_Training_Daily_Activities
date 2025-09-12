@@ -1,0 +1,15 @@
+<form action="/auth/register" method="post">
+    <label>Username:</label>
+    <input type="text" name="username" required><br>
+
+    <label>Password:</label>
+    <input type="password" name="password" required><br>
+
+    <label>Role:</label>
+    <select name="userRole" required>
+        <option value="ADMIN">ADMIN</option>
+        <option value="USER">USER</option>
+    </select><br>
+
+    <button type="submit">Register</button>
+</form>

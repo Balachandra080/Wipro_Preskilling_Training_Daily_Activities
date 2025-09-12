@@ -1,0 +1,54 @@
+package com.gl.jpa.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.core.ParameterizedTypeReference;
+
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class ApiService {
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    // ================= Auth Service =================
+
+    public String registerUser(Map<String, Object> user) {
+        return restTemplate.postForObject("http://AUTH-SERVICE/user/register", user, String.class);
+    }
+
+    public String loginUser(Map<String, Object> loginData) {
+        return restTemplate.postForObject("http://AUTH-SERVICE/user/login", loginData, String.class);
+    }
+
+    // ================= Category Service =================
+
+    public List<Map<String, Object>> getCategories() {
+        ResponseEntity<List<Map<String, Object>>> response =
+                restTemplate.exchange(
+                        "http://CATEGORY-SERVICE/categories",
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<List<Map<String, Object>>>() {}
+                );
+        return response.getBody();
+    }
+
+    // ================= Item Service =================
+
+    public List<Map<String, Object>> getItems() {
+        ResponseEntity<List<Map<String, Object>>> response =
+                restTemplate.exchange(
+                        "http://ITEM-SERVICE/items",
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<List<Map<String, Object>>>() {}
+                );
+        return response.getBody();
+    }
+}

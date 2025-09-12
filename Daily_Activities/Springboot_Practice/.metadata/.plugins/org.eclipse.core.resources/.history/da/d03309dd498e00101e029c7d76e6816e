@@ -1,0 +1,24 @@
+package com.gl.jpa.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class ApiService {
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    public String registerUser(Map<String, Object> user) {
+        return restTemplate.postForObject("http://AUTH-SERVICE/user/register", user, String.class);
+    }
+
+    public String loginUser(Map<String, Object> loginData) {
+        return restTemplate.postForObject("http://AUTH-SERVICE/user/login", loginData, String.class);
+    }
+}

@@ -1,0 +1,19 @@
+package com.gl.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class StudentController {
+
+    @RequestMapping("/student")
+    public String testStudent(Model model) {
+        Student s1 = new Student("Rani", 20);
+
+        // Put object in model
+        model.addAttribute("rani", s1);
+
+        return "showstudent";  // goes to showstudent.jsp
+    }
+}

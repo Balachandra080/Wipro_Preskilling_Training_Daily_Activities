@@ -1,0 +1,48 @@
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Items</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f9f9f9; }
+        h2 { text-align: center; margin-top: 20px; }
+        .category { margin: 30px; }
+        .items-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px;
+        }
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .card h4 { margin: 10px 0; }
+        .card p { margin: 5px 0; color: #555; }
+    </style>
+</head>
+<body>
+    <h2>🍕 Our Menu</h2>
+
+    <c:forEach var="cat" items="${categories}">
+        <div class="category">
+            <h3>${cat.name}</h3>
+            <div class="items-container">
+                <c:forEach var="item" items="${items}">
+                    <c:if test="${item.category.id eq cat.id}">
+                        <div class="card">
+                            <h4>${item.name}</h4>
+                            <p>Price: ₹${item.price}</p>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </div>
+    </c:forEach>
+</body>
+</html>

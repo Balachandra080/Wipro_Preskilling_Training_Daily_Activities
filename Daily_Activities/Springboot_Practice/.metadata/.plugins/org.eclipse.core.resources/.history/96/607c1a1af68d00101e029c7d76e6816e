@@ -1,0 +1,12 @@
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<html>
+<head><title>Register</title></head>
+<body>
+<h2>Register</h2>
+<form action="/auth/register" method="post">
+    Username: <input type="text" name="username"/> <br/>
+    Password: <input type="password" name="password"/> <br/>
+    <input type="submit" value="Register"/>
+</form>
+</body>
+</html>

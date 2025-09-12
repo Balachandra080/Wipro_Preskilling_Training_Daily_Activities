@@ -1,0 +1,5 @@
+package com.gl.security.dto;
+
+public class OrderDto {
+
+}

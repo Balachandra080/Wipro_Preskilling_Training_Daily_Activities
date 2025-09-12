@@ -1,0 +1,33 @@
+package com.gl.hiber;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class TestMM {
+
+    public static void main(String[] args) {
+
+        try {
+            // Load Hibernate configuration
+            SessionFactory factory = new Configuration().configure().buildSessionFactory();
+
+            // Open a session
+            Session session = factory.openSession();
+
+            // Start a transaction
+            Transaction tx = session.beginTransaction();
+            
+            // Commit transaction
+            tx.commit();
+
+            session.close();
+
+
+        } catch (Exception ex) {
+            System.out.println("❌ Error in many-to-many mapping: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+}

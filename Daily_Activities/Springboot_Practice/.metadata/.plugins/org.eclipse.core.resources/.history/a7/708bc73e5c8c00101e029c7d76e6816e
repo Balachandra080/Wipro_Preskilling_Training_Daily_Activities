@@ -1,0 +1,45 @@
+package com.gl.pizza.service;
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.gl.pizza.model.Cart;
+import com.gl.pizza.repo.CartRepo;
+
+
+// (Manage cart only (add/remove))
+
+
+@Service
+public class CartService {
+
+    @Autowired
+    private CartRepo repo;
+
+    // Add new cart
+    public void add(Cart cart) {
+        repo.save(cart);
+    }
+
+    // Get all carts
+    public List<Cart> getAll() {
+        return repo.findAll();
+    }
+
+    // Get cart by ID
+    public Cart getById(Long id) {
+        Optional<Cart> opt = repo.findById(id);
+        return opt.orElse(null);
+    }
+
+    // Update cart
+    public void update(Cart cart) {
+        repo.save(cart);
+    }
+
+    // Delete cart
+    public void delete(Long id) {
+        repo.deleteById(id);
+    }
+}

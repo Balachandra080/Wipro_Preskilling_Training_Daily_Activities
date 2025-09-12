@@ -1,0 +1,17 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Pizza Store Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to Pizza Store Admin Dashboard 🍕</h1>
+    <p>You are logged in successfully.</p>
+
+    <ul>
+        <li><a href="/categories">Manage Categories</a></li>
+        <li><a href="/items">Manage Items</a></li>
+        <li><a href="/orders">View Orders</a></li>
+        <li><a href="/auth/logout">Logout</a></li>
+    </ul>
+</body>
+</html>

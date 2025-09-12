@@ -1,0 +1,4 @@
+spring.application.name=Micro-Service-Server
+
+
+server-port = 9090

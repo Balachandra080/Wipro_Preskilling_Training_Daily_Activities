@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+
+
+    var marks = [10,20,30,40,50];
+    var names = ["king", "jack", "Santosh", "Sangeetha"];
+
+    //map -> changing the values inside the array
+    //Req -> univ is saying add 10 as grace marka
+    // Original is kept safe
+    // Changes are stored in new array
+    console.log("----- Map -----");
+    var newMarks = marks.map(temp => temp + 10);
+    console.log(marks);
+    console.log(newMarks);
+
+   // Req: We want only marks above 50
+   console.log("----- Filter -----");
+   var highMarks = marks.filter(temp => temp > 50);
+   console.log(marks);
+   console.log(highMarks);
+
+   console.log("----- For Loop -----");
+   for (var i = 0; i < marks.length; i++) 
+   {
+    console.log(marks[i]);
+   }
+
+   console.log("----- For Each Loop -----");
+   marks.forEach(function(value, count) 
+   {
+    console.log(value + " is at " + count);
+   });
+
+/*
+    var newMarks = marks.map(temp => temp +10);
+    console.log(newMarks)
+*/
+</script>

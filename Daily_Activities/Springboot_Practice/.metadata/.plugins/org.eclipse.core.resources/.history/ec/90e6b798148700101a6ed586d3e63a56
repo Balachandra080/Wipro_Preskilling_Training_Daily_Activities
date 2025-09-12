@@ -1,0 +1,45 @@
+package com.gl.jpa.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gl.jpa.model.Gender;
+import com.gl.jpa.model.Person;
+import com.gl.jpa.repo.PersonRepo;
+import java.util.*;
+
+@Service
+public class PersonService 
+{
+
+    @Autowired
+    PersonRepo personRepo;
+
+    @Autowired
+    GenderService genderService; // to fetch Gender by id
+
+
+    // Add person
+    public Person add(String name, int genderId) {
+        Gender gender = null;
+        try {
+            gender = genderService.getById(genderId);
+            if (gender == null) {
+                System.err.println("Invalid gender id");
+                return null;
+            }
+        } catch (Exception ex) {
+            System.err.println("Error fetching gender: " + ex.getMessage());
+            return null;
+        }
+
+        Person person = new Person(name, gender);
+        personRepo.save(person);
+        return person;
+    }
+    
+ // Get all persons
+    public List<Person> getAll() {
+        return personRepo.findAll();
+    }
+}

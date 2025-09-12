@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Actions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link href="login.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="my-form p-1 m-1">
+                    <div class="mb-2">
+                        <label class="form-label">Value of a</label>
+                        <input type="number" class="form-control" id="maths" placeholder="">
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label">Value of b</label>
+                        <input type="number" class="form-control" id="science" placeholder="">
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label">Select Action</label>
+                        <select class="form-select" id="action">
+                            <option>Add</option>
+                            <option>Sub</option>
+                            <option>Mul</option>
+                            <option>Div R</option>
+                            <option>Div Q</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
+                        <button type="button" onclick="findAnswer()" class="btn btn-success">Find Answer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function findAnswer() {
+            // find what is selected in the select box
+            var action = document.getElementById("action").value;
+
+            if (action === "Add") {
+                add();
+            }
+            else if (action === "Sub") {
+                sub();
+            }
+            else if (action === "Mul") {
+                mul();
+            }
+            else if (action === "Div R") {
+                divr();
+            }
+            else if (action === "Div Q") {
+                divq();
+            }
+            else {
+                alert("Invalid action selected");
+            }
+        }
+
+        function add() {
+            var a = document.getElementById("maths").value;
+            var b = document.getElementById("science").value;
+            var c = parseInt(a) + parseInt(b);
+            alert("c = " + c);
+        }
+
+        function sub() {
+            var a = document.getElementById("maths").value;
+            var b = document.getElementById("science").value;
+            var c = parseInt(a) - parseInt(b);
+            alert("c = " + c);
+        }
+
+        function mul() {
+            var a = document.getElementById("maths").value;
+            var b = document.getElementById("science").value;
+            var c = parseInt(a) * parseInt(b);
+            alert("c = " + c);
+        }
+
+        function divr() {
+            var a = document.getElementById("maths").value;
+            var b = document.getElementById("science").value;
+            var c = parseInt(a) % parseInt(b);
+            alert("Remainder = " + c);
+        }
+
+        function divq() {
+            var a = document.getElementById("maths").value;
+            var b = document.getElementById("science").value;
+            var c = parseInt(a) / parseInt(b);
+            alert("Quotient = " + c);
+        }
+    </script>
+</body>
+</html>

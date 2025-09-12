@@ -1,0 +1,5 @@
+package com.gl.repo;
+
+public interface AdminRepo {
+
+}

@@ -1,0 +1,24 @@
+package com.gl.jpa.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gl.jpa.service.PersonService;
+
+@RestController
+public class PersonController {
+
+    @Autowired
+    private PersonService personService;
+
+    @PostMapping("/person/add")
+    public ResponseEntity<String> add(String name, int genderId) {
+        personService.add(name, genderId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Person added");
+    }
+}
